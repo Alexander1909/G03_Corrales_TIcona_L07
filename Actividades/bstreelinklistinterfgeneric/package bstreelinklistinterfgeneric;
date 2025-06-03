@@ -79,3 +79,10 @@ public void preOrder(Node<E> node, StringBuilder sb) {
         preOrder(node.left, sb);
         preOrder(node.right, sb);        }
     }
+public void postOrder(Node<E> node, StringBuilder sb) {
+        if (node != null) {
+            postOrder(node.left, sb);
+            postOrder(node.right, sb);
+            sb.append(node.data).append(" ");
+        }
+    }

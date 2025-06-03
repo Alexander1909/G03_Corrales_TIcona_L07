@@ -169,3 +169,15 @@ private Node<E> findMinNode(Node<E> node) {
         System.out.println("\nÁrbol BST:");
         System.out.println(parenthesize());
     }
+
+  @Override
+    public String parenthesize() {
+        return parenthesize(root, 0);
+    }
+
+    private String parenthesize(Node<E> node, int level) {
+        if (node == null) return "";
+        String indent = "  ".repeat(level);
+        return indent + node.data + "\n" + parenthesize(node.left, level + 1) + parenthesize(node.right, level + 1);
+    }
+

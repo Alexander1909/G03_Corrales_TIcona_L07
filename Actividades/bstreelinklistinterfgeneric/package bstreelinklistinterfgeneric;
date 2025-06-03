@@ -19,3 +19,16 @@ public class LinkedBST<E extends Comparable<E>> implements BinarySearchTree<E> {
     public LinkedBST() {
         this.root = null;
     }
+ @Override
+    public void insert(E data) throws ItemDuplicatedException {
+        root = insertRec(root, data);
+    }
+
+    private Node<E> insertRec(Node<E> node, E data) throws ItemDuplicatedException {
+        if (node == null) return new Node<>(data);
+        int cmp = data.compareTo(node.data);
+        if (cmp == 0) throw new ItemDuplicatedException("Dato duplicado: " + data);
+        else if (cmp < 0) node.left = insertRec(node.left, data);
+        else node.right = insertRec(node.right, data);
+        return node;
+    }

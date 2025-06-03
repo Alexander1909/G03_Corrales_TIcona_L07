@@ -158,3 +158,14 @@ private Node<E> findMinNode(Node<E> node) {
         if (level == 0) return 1;
         return countNodesAtLevel(node.left, level - 1) + countNodesAtLevel(node.right, level - 1);
     }
+
+ @Override
+    public int areaBST() {
+        return countLeaves() * heightFrom(root);
+    }
+
+    @Override
+    public void drawBST() {
+        System.out.println("\nÁrbol BST:");
+        System.out.println(parenthesize());
+    }

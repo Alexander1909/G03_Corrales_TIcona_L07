@@ -2,3 +2,13 @@ public interface BinarySearchTree<E extends Comparable<E>> {
     void insert(E data) throws ItemDuplicatedException;
     void delete(E data) throws ExceptionIsEmpty, ItemNotFoundException;
     boolean search(E data) throws ExceptionIsEmpty;
+    String toString();
+    void destroyNodes() throws ExceptionIsEmpty;
+    int countAllNodes();
+    int countLeaves();
+    int height(E data);
+    int amplitude(int level);
+    int areaBST();
+    void drawBST();
+    String parenthesize();
+    }

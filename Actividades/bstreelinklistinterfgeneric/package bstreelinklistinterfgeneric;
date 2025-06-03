@@ -45,3 +45,23 @@ public class LinkedBST<E extends Comparable<E>> implements BinarySearchTree<E> {
         else if (cmp < 0) return searchRec(node.left, data);
         else return searchRec(node.right, data);
     }
+ @Override
+    public void delete(E data) throws ExceptionIsEmpty, ItemNotFoundException {
+        if (root == null) throw new ExceptionIsEmpty("Árbol vacío");
+        root = deleteRec(root, data);
+    }
+
+    private Node<E> deleteRec(Node<E> node, E data) throws ItemNotFoundException {
+        if (node == null) throw new ItemNotFoundException("Dato no encontrado: " + data);
+        int cmp = data.compareTo(node.data);
+        if (cmp < 0) node.left = deleteRec(node.left, data);
+        else if (cmp > 0) node.right = deleteRec(node.right, data);
+        else {
+            if (node.left == null) return node.right;
+            if (node.right == null) return node.left;
+            Node<E> min = findMinNode(node.right);
+            node.data = min.data;
+            node.right = deleteRec(node.right, min.data);
+        }
+        return node;
+    }

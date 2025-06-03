@@ -86,3 +86,75 @@ public void postOrder(Node<E> node, StringBuilder sb) {
             sb.append(node.data).append(" ");
         }
     }
+
+private Node<E> findMinNode(Node<E> node) {
+       while (node.left != null) node = node.left;
+      return node;
+    }
+  
+    private Node<E> findMaxNode(Node<E> node) {
+      while (node.right != null) node = node.right;
+        return node;
+    }
+  
+  @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        inOrder(root, sb);
+        return sb.toString().trim();
+      }
+
+ @Override
+    public void destroyNodes() throws ExceptionIsEmpty {
+        if (root == null) throw new ExceptionIsEmpty("Árbol vacío");
+        root = null;
+    }
+
+    @Override
+    public int countAllNodes() {
+        return countAllNodes(root);
+    }
+
+    private int countAllNodes(Node<E> node) {
+        if (node == null || (node.left == null && node.right == null)) return 0;
+        return 1 + countAllNodes(node.left) + countAllNodes(node.right);
+    }
+
+    @Override
+    public int countLeaves() {
+        return countLeaves(root);
+    }
+
+    private int countLeaves(Node<E> node) {
+        if (node == null) return 0;
+        if (node.left == null && node.right == null) return 1;
+        return countLeaves(node.left) + countLeaves(node.right);
+    }
+
+    @Override
+    public int height(E data) {
+        Node<E> node = root;
+        while (node != null) {
+            int cmp = data.compareTo(node.data);
+            if (cmp == 0) return heightFrom(node);
+            else if (cmp < 0) node = node.left;
+            else node = node.right;
+        }
+        return -1;
+    }
+
+    private int heightFrom(Node<E> node) {
+        if (node == null) return -1;
+        return 1 + Math.max(heightFrom(node.left), heightFrom(node.right));
+    }
+
+    @Override
+    public int amplitude(int level) {
+        return countNodesAtLevel(root, level);
+    }
+
+    private int countNodesAtLevel(Node<E> node, int level) {
+        if (node == null) return 0;
+        if (level == 0) return 1;
+        return countNodesAtLevel(node.left, level - 1) + countNodesAtLevel(node.right, level - 1);
+    }
